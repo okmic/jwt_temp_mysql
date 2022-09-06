@@ -18,10 +18,13 @@ exports.all = async (query) => {
 
 exports.send = async (query) =>  {
     try {
+
         const conn = await mysql.createConnection(config)
+
         const res = conn.query(query)
         
         console.log('done')
+        
         conn.end()
 
         return res
