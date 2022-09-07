@@ -1,5 +1,5 @@
 const mysql = require('mysql2')
-const config = require('./../dbenv')
+const config = require('../config').dbenv
 
 exports.all = async (query, callback) => {
     try {
