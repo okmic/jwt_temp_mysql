@@ -1,9 +1,10 @@
-exports.status = (values, res) => {
+exports.status = (status, values, res) => {
     const data = {
-        "status": 200,
+        "status": status,
         "values": values
     }
 
+    res.status(data.status)
     res.json(data)
     res.end()
 }

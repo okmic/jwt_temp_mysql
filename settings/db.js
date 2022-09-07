@@ -1,33 +1,32 @@
-const mysql = require('mysql2/promise')
-const config = require('./../config')
+const mysql = require('mysql2')
+const config = require('./../dbenv')
 
-exports.all = async (query) => {
+exports.all = async (query, callback) => {
     try {
         const conn = await mysql.createConnection(config)
-        const [rows, fields] = await conn.execute(query)
+        await conn.execute(query, callback)
 
         console.log('done')
         conn.end()
-
-        return rows
+        return 
     }
     catch (e) {
         console.error(e)
     }
 }
 
-exports.send = async (query) =>  {
+exports.send = (query, callback) =>  {
     try {
 
-        const conn = await mysql.createConnection(config)
+        const conn =  mysql.createConnection(config)
 
-        const res = conn.query(query)
+        conn.query(query, callback)
         
         console.log('done')
         
         conn.end()
 
-        return res
+        return
     }
     catch (e) {
         console.error(e)
