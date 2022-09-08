@@ -2,9 +2,11 @@ const express = require('express')
 const app = express()
 const bodyparser = require('body-parser')
 const passport = require('passport')
+const cors = require('cors')
 
 const PORT = process.env.PORT | 5000
 
+app.use(cors({origin: '*'}))
 app.use(bodyparser.urlencoded({extended: true}))
 app.use(bodyparser.json())
 app.use(passport.initialize())
