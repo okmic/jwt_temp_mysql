@@ -1,13 +1,14 @@
-import {useCallback, useState} from "react"
+import {useCallback, useState, useContext} from "react"
+import { AuthContext } from "../context/authContext"
 
 export const useHttp = () => {
 
     const [loading, setLoading] = useState(false)
-    const request =  useCallback(async (url, method = 'GET', body = null, headers = {}) => {
-
+    const {token} = useContext(AuthContext)
+    
+    const request = useCallback(async (url: string, method = 'GET', body: any = null, headers: any = {Authorization: token}) => {
     setLoading(true)
         try {
-        
             if(body) {
                 body = JSON.stringify(body)
                 headers['Content-Type'] = 'application/json'

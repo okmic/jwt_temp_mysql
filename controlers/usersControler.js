@@ -22,6 +22,21 @@ exports.getAllUsers = async (req, res) => {
     }
 }
 
+exports.getProfile = async (req, res) => {
+    try {
+        db.all("select `id`, `name`, `email` from users where `id` = '"+ req.body.id +"'", (err, results, fields) => {
+            if (err) {
+                response.status(400, err, res)
+            }
+            response.status(200, results, res)
+        })
+    }
+    catch (e) {
+        console.error(e)
+        response(500, e, res)
+    }
+}
+
 exports.signup = (req, res) => {
     try {
         db.all("select `id`, `email`, `name` from `users` where `email` = '"+req.body.email+"'", (err, result) => {
@@ -80,7 +95,7 @@ exports.signin = (req, res) => {
                             email: item.email
                         }, jwtconfig, {expiresIn: 120 * 120}) 
 
-                        response.status(200, {token: `Bearer ${token}`}, res)
+                        response.status(200, {token: `Bearer ${token}`, id: result[0]["id"]}, res)
                     } else {
                         response.status(401, {massage: 'password is not trye'}, res)
                     }

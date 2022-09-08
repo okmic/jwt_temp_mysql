@@ -1,5 +1,8 @@
 body {
   margin: 0;
+  box-sizing: border-box;
+  background-color: rgb(70, 68, 68);
+  color: white;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +10,36 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.fc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input, button {
+  padding: 1em 1.5em;
+  margin: 1em;
+  color: #fff;
+  background-color: rgba(92, 88, 88, 0.712);
+  border: 1px solid rgba(155, 61, 61, 0.76);
+  border-radius: 15px;
+}
+
+a {
+  color: #fff;
+}
+button {
+  cursor: pointer;
 }

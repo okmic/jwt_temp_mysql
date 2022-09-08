@@ -5,6 +5,9 @@ module.exports = (app) => {
     app.route('/api/users')
     .get(passport.authenticate('jwt', {session: false}), usersController.getAllUsers)
 
+    app.route('/api/profile')
+    .post(passport.authenticate('jwt', {session: false}), usersController.getProfile)
+
     app.route('/api/signup')
     .post(usersController.signup)
 

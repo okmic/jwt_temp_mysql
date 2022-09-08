@@ -1,28 +1,24 @@
-import {useContext} from 'react'
-import { Link } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { urlApi } from "../../config"
-import { AuthContext } from '../context/authContext'
 import { useHttp } from "../hooks/http.hook"
 import useInput from "../hooks/useInput"
 
-export default function SigninPage() {
+export default function SignupPage() {
 
     const { loading, request } = useHttp()
-    const {setAuth, setToken, setUserId} = useContext(AuthContext)
   
+    const name = useInput('')
     const email = useInput('')
     const password = useInput('')
+    const navigate = useNavigate()
 
-  
     const handleSubmit = () => {
       try {
-        request(urlApi + 'api/signin', 'POST', { email: email.value, password: password.value })
+        request(urlApi + 'api/signup', 'POST', {name: name.value, email: email.value, password: password.value })
           .then((res) => {
             if(res.status === 200) {
-              setAuth(true)
-              localStorage.setItem("token", res.values.token)
-              setToken(res.values.token)
-              setUserId(res.values.id)
+              alert('Registration successfully completed')
+              navigate('/')
             }
           })
       } catch (e) {
@@ -35,14 +31,14 @@ export default function SigninPage() {
         <h1>Loading...</h1>
       </div>
     }
-
+  
     return (
       <div className="fc">
-        <h3>Sign in</h3>
+        <h3>Sign up</h3>
+        <input type="text" {...name} placeholder="name" />
         <input type="text" {...email} placeholder="email" />
         <input type="password" {...password} placeholder="password" />
         <button onClick={handleSubmit}>send</button>
-        <Link to="/signup"><h1>SingUp</h1></Link>
       </div>
     )
   }
