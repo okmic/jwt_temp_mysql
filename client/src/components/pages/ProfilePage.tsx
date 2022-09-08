@@ -12,14 +12,14 @@ type UserType = {
 export default function ProfilePage () {
 
     const {request} = useHttp()
-    const {setAuth, setToken} = useContext(AuthContext)
+    const {setAuth, setToken, token} = useContext(AuthContext)
     const [user, setUser] = useState<UserType[] | null>(null)
 
     useEffect(() => {
-        request(urlApi + 'api/profile', 'POST', {})
+        request(urlApi + 'api/profile', 'POST', {token: token})
         .then((res) => {
           if(res.status === 200) {
-/*               console.log(res) */
+               setUser(res.values)
           }
         })
       }, [])
@@ -32,7 +32,7 @@ export default function ProfilePage () {
 
     return (
         <div className='fc'>
-            {user && user.map((item: UserType) => <div className='fc'>
+            {user && user.map((item: UserType) => <div className='fc' key={item.id}>
                     <h3>{item.id}</h3>
                     <h3>{item.name}</h3>
                     <h3>{item.email}</h3>

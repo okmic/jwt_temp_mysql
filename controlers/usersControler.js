@@ -3,11 +3,9 @@ const db = require('./../settings/db')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const jwtconfig = require('./../config').jwt
-
-
+const jwt_decode = require('jwt-decode')
 
 exports.getAllUsers = async (req, res) => {
-
     try {
         db.all('select `id`, `name`, `email` from users', (err, results, fields) => {
             if (err) {
@@ -24,12 +22,13 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
     try {
-        db.all("select `id`, `name`, `email` from users where `id` = '"+ req.body.id +"'", (err, results, fields) => {
+        const decode = await jwt_decode(req.body.token)
+         db.all("select `id`, `name`, `email` from users where `id` = '"+ decode.id +"'", (err, results, fields) => {
             if (err) {
                 response.status(400, err, res)
             }
             response.status(200, results, res)
-        })
+        }) 
     }
     catch (e) {
         console.error(e)
@@ -67,15 +66,12 @@ exports.signup = (req, res) => {
                 })  
             }
         })
-
-
       
     }
     catch (e) {
         console.error(e)
         response(500, e, res)
     }
-
 }
 
 exports.signin = (req, res) => {
@@ -107,6 +103,4 @@ exports.signin = (req, res) => {
         console.error(e)
         response.status(500, e, res)
     }
-
-
 }
