@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { urlApi } from "../../config"
 import { useHttp } from "../hooks/http.hook"
@@ -11,6 +12,8 @@ export default function SignupPage() {
   const email = useInput('', 'email')
   const password = useInput('', 'simple')
   const navigate = useNavigate()
+  const [serverError, setServerError] = useState<null | string>(null)
+
 
   const handleSubmit = () => {
     try {
@@ -21,7 +24,8 @@ export default function SignupPage() {
           if (res.status === 200) {
             alert('Registration successfully completed')
             navigate('/')
-          }
+            return
+          } else return setServerError(res)
         })
     } catch (e) {
       throw e
@@ -37,6 +41,7 @@ export default function SignupPage() {
   return (
     <div className="fc">
       <h3>Sign up</h3>
+      {serverError && <h4 className='err'>{serverError}</h4>}
       {name.error.err && <label htmlFor="name" className='err'>{name.error.err}</label>}
       <input id='name' type="text" {...name.params} placeholder="name" />
       {email.error.err && <label htmlFor="email" className='err'>{email.error.err}</label>}

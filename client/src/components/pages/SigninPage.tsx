@@ -26,10 +26,8 @@ export default function SigninPage() {
             localStorage.setItem("token", res.values.token)
             setToken(res.values.token)
             setUserId(res.values.id)
-          } else {
-            alert(res.values.message)
-            setServerError(res.values.message)
-          }
+            return
+          } else return setServerError(res)
         })
     } catch (e) {
       throw e

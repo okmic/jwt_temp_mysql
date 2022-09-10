@@ -44,7 +44,7 @@ exports.signup = (req, res) => {
             } else if (typeof result !== 'undefined' && result.length > 0) {
                 JSON.parse(JSON.stringify(result))
                 .map((item) => {
-                    response.status(302, {massage: `The user - ${item.email} is already in the database`}, res)
+                    response.status(302, {message: `The user - ${item.email} is already in the database`}, res)
                     return true
                 })
                                 
@@ -92,7 +92,7 @@ exports.signin = (req, res) => {
 
                         response.status(200, {token: `Bearer ${token}`, id: result[0]["id"]}, res)
                     } else {
-                        response.status(401, {massage: 'password is not trye'}, res)
+                        response.status(401, {message: 'password is not trye'}, res)
                     }
                     return true
                 })
