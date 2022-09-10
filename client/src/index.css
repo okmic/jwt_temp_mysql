@@ -43,3 +43,7 @@ a {
 button {
   cursor: pointer;
 }
+.err {
+  font-size: 30px;
+  color: red;
+}

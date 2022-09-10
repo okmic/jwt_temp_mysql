@@ -42,10 +42,9 @@ exports.signup = (req, res) => {
             if (err) {
                 response.status(400, err, res)
             } else if (typeof result !== 'undefined' && result.length > 0) {
-                
                 JSON.parse(JSON.stringify(result))
                 .map((item) => {
-                    response.status(302, `The user - ${req.body.email} is already in the database`, res)
+                    response.status(302, {massage: `The user - ${item.email} is already in the database`}, res)
                     return true
                 })
                                 
